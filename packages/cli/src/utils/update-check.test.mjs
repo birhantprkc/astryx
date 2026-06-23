@@ -46,7 +46,7 @@ describe('getLatestVersion', () => {
     fs.writeFileSync(versionFilePath, '0.0.9\n');
     fs.writeFileSync(
       path.join(tmpDir, 'package.json'),
-      JSON.stringify({xds: {versionFile: './LATEST_VERSION'}}),
+      JSON.stringify({astryx: {versionFile: './LATEST_VERSION'}}),
     );
 
     expect(getLatestVersion(tmpDir)).toBe('0.0.9');
@@ -63,7 +63,7 @@ describe('getLatestVersion', () => {
   it('returns null when versionFile path does not exist', () => {
     fs.writeFileSync(
       path.join(tmpDir, 'package.json'),
-      JSON.stringify({xds: {versionFile: './missing/LATEST_VERSION'}}),
+      JSON.stringify({astryx: {versionFile: './missing/LATEST_VERSION'}}),
     );
     expect(getLatestVersion(tmpDir)).toBeNull();
   });
@@ -74,7 +74,7 @@ describe('getLatestVersion', () => {
     fs.writeFileSync(versionFilePath, '0.0.9\n');
     fs.writeFileSync(
       path.join(tmpDir, 'package.json'),
-      JSON.stringify({xds: {versionFile: './LATEST_VERSION'}}),
+      JSON.stringify({astryx: {versionFile: './LATEST_VERSION'}}),
     );
 
     expect(getLatestVersion(tmpDir)).toBe('1.0.0');
@@ -147,7 +147,7 @@ describe('checkForUpdate', () => {
       path.join(tmpDir, 'package.json'),
       JSON.stringify({
         dependencies: {'@xds/core': '^0.0.7'},
-        xds: {versionFile: './LATEST_VERSION'},
+        astryx: {versionFile: './LATEST_VERSION'},
       }),
     );
 
@@ -162,7 +162,7 @@ describe('checkForUpdate', () => {
       path.join(tmpDir, 'package.json'),
       JSON.stringify({
         dependencies: {'@xds/core': '^0.0.7'},
-        xds: {versionFile: './LATEST_VERSION'},
+        astryx: {versionFile: './LATEST_VERSION'},
       }),
     );
 

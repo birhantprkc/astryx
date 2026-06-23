@@ -242,14 +242,11 @@ function resolveTokenValue(value) {
   return value;
 }
 
-// Dual-prefix theme @scope selector helpers (XDS-prefix migration
-// P2380608025). Keep the `astryx` literal in sync with
+// Theme @scope selector helpers. Keep the `astryx` literal in sync with
 // packages/core/src/naming.ts (NAMESPACE) and generateThemeRules.ts.
-// XDSTheme dual-emits both data-astryx-theme and data-xds-theme during the
-// compat window, so the static build path must scope to either form too.
-const themeScopeStart = name =>
-  `[data-astryx-theme="${name}"], [data-xds-theme="${name}"]`;
-const THEME_SCOPE_TO = `[data-astryx-theme], [data-xds-theme]`;
+// Theme scopes to data-astryx-theme; the static build path must match.
+const themeScopeStart = name => `[data-astryx-theme="${name}"]`;
+const THEME_SCOPE_TO = `[data-astryx-theme]`;
 
 /**
  * Import a theme module using jiti and find the defineTheme() result.
@@ -719,14 +716,14 @@ export function registerTheme(program) {
             ? '  :root { color-scheme: light dark; }\n\n'
             : '';
           cssParts.push(
-            `@layer xds-theme {\n${colorSchemeDecl}${componentScope}\n}`,
+            `@layer astryx-theme {\n${colorSchemeDecl}${componentScope}\n}`,
           );
         }
         // On-media rules (MediaTheme dark/light surface overrides)
         if (_generateOnMediaCSS) {
           const onMediaCss = _generateOnMediaCSS(resolvedTheme);
           if (onMediaCss) {
-            cssParts.push(`@layer xds-theme {\n${onMediaCss}\n}`);
+            cssParts.push(`@layer astryx-theme {\n${onMediaCss}\n}`);
           }
         }
         if (cssParts.length === 0) {
